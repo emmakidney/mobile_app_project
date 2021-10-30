@@ -33,7 +33,7 @@ class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>,
             RecyclerView.ViewHolder(binding.root) {
 
         fun bind(placemark: PlacemarkModel, listener: PlacemarkListener) {
-            binding.placemarkTitle.text = placemark.title
+            binding.crashType.text = placemark.title
             binding.description.text = placemark.description
             Picasso.get().load(placemark.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onPlacemarkClick(placemark) }

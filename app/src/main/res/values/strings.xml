@@ -2,10 +2,10 @@
     <string name="app_name">Car Crash Notifier</string>
     <string name="button_addPlacemark">Add Crash</string>
     <string name="hint_placemarkTitle">Crash Type</string>
-    <string name="hint_placemarkDescription">Description </string>
+    <string name="hint_placemarkDescription">Please add type and time of crash </string>
     <string name="menu_addPlacemark">Add</string>
     <string name="menu_cancelPlacemark">Cancel</string>
-    <string name="enter_placemark_title"> Please select severity of Crash </string>
+    <string name="enter_placemark_title">Crash Alert!</string>
     <string name="serious">Serious</string>
     <string name="major">Major</string>
     <string name="minor">Minor</string>
