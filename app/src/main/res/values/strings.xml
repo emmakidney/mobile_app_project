@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Placemark</string>
+    <string name="app_name">Car Crash Notifier</string>
     <string name="button_addPlacemark">Add Crash</string>
     <string name="hint_placemarkTitle">Crash Type</string>
     <string name="hint_placemarkDescription">Description </string>
