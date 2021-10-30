@@ -40,19 +40,63 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
+                <TextView
                     android:id="@+id/placemarkTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_margin="8dp"
-                    android:autofillHints=""
-                    android:hint="@string/hint_placemarkTitle"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
+                    android:layout_width="188dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/enter_placemark_title"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.044"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.017" />
+
+                <RadioGroup
+                    android:id="@+id/crashType"
+                    android:layout_width="181dp"
+                    android:layout_height="128dp"
+                    android:layout_above="@+id/progressBar"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.042"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/placemarkTitle"
+                    app:layout_constraintVertical_bias="0.276">
+
+                    <RadioButton
+                        android:id="@+id/Serious"
+                        android:layout_width="97dp"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/serious" />
+
+                    <RadioButton
+                        android:id="@+id/Major"
+                        android:layout_width="97dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/major" />
+                    <RadioButton
+                        android:id="@+id/Minor"
+                        android:layout_width="97dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/minor" />
+                </RadioGroup>
 
                 <EditText
                     android:id="@+id/description"

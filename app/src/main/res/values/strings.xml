@@ -5,7 +5,10 @@
     <string name="hint_placemarkDescription">Description </string>
     <string name="menu_addPlacemark">Add</string>
     <string name="menu_cancelPlacemark">Cancel</string>
-    <string name="enter_placemark_title"> Please enter severity of Crash </string>
+    <string name="enter_placemark_title"> Please select severity of Crash </string>
+    <string name="serious">Serious</string>
+    <string name="major">Major</string>
+    <string name="minor">Minor</string>
     <string name="save_placemark"> Save Crash </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_placemark_image">Select image</string>
