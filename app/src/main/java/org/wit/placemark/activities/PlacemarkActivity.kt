@@ -29,7 +29,7 @@ class PlacemarkActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    var location = Location(52.245696, -7.139102, 15f)
+     // var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,11 +82,16 @@ class PlacemarkActivity : AppCompatActivity() {
         }
 
         binding.placemarkLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (placemark.zoom != 0f) {
+                location.lat =  placemark.lat
+                location.lng = placemark.lng
+                location.zoom = placemark.zoom
+            }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
-
         registerImagePickerCallback()
         registerMapCallback()
     }
