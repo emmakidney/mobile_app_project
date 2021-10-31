@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.RadioGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.maps.GoogleMap
@@ -29,12 +30,11 @@ class PlacemarkActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-     // var location = Location(52.245696, -7.139102, 15f)
+    //var location = Location(52.245696, -7.139102, 15f)
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        var edit = false
 
         binding = ActivityPlacemarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -48,6 +48,7 @@ class PlacemarkActivity : AppCompatActivity() {
         if (intent.hasExtra("placemark_edit")) {
             edit = true
             placemark = intent.extras?.getParcelable("placemark_edit")!!
+            binding.crashType.setOnCheckedChangeListener()
             binding.description.setText(placemark.description)
             binding.btnAdd.setText(R.string.save_placemark)
             Picasso.get()
@@ -59,10 +60,11 @@ class PlacemarkActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener() {
+            placemark.title = binding.crashType.checkedRadioButtonId.toString()
             placemark.description = binding.description.text.toString()
             if (placemark.title.isEmpty()) {
                 Snackbar.make(it,R.string.enter_placemark_title, Snackbar.LENGTH_LONG)
-                        .show()
+                    .show()
             } else {
                 if (edit) {
                     app.placemarks.update(placemark.copy())
@@ -90,17 +92,23 @@ class PlacemarkActivity : AppCompatActivity() {
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }
+
         registerImagePickerCallback()
         registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_placemark, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.item_delete -> {
+                app.placemarks.delete(placemark)
+                finish()
+            }
             R.id.item_cancel -> {
                 finish()
             }
@@ -118,8 +126,8 @@ class PlacemarkActivity : AppCompatActivity() {
                             i("Got Result ${result.data!!.data}")
                             placemark.image = result.data!!.data!!
                             Picasso.get()
-                                   .load(placemark.image)
-                                   .into(binding.placemarkImage)
+                                .load(placemark.image)
+                                .into(binding.placemarkImage)
                             binding.chooseImage.setText(R.string.change_placemark_image)
                         } // end of if
                     }
@@ -147,4 +155,8 @@ class PlacemarkActivity : AppCompatActivity() {
                 }
             }
     }
+}
+
+private fun RadioGroup.setOnCheckedChangeListener() {
+    TODO("Not yet implemented")
 }

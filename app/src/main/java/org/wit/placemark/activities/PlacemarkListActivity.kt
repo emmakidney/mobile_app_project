@@ -15,11 +15,12 @@ import org.wit.placemark.databinding.ActivityPlacemarkListBinding
 import org.wit.placemark.main.MainApp
 import org.wit.placemark.models.PlacemarkModel
 
-class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
+class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener/*, MultiplePermissionsListener*/ {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityPlacemarkListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +33,10 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        loadPlacemarks()
 
+        loadPlacemarks()
         registerRefreshCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -47,6 +49,10 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, PlacemarkActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
+            }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, PlacemarkMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -64,6 +70,12 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
             { loadPlacemarks() }
     }
 
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {  }
+    }
+
     private fun loadPlacemarks() {
         showPlacemarks(app.placemarks.findAll())
     }
@@ -72,4 +84,5 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
         binding.recyclerView.adapter = PlacemarkAdapter(placemarks, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
+
 }

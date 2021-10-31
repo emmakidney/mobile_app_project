@@ -11,13 +11,15 @@ interface PlacemarkListener {
     fun onPlacemarkClick(placemark: PlacemarkModel)
 }
 
-class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>,
-                                   private val listener: PlacemarkListener) :
-        RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {
+class PlacemarkAdapter constructor(
+    private var placemarks: List<PlacemarkModel>,
+    private val listener: PlacemarkListener
+) :
+    RecyclerView.Adapter<PlacemarkAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardPlacemarkBinding
-                .inflate(LayoutInflater.from(parent.context), parent, false)
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
         return MainHolder(binding)
     }
@@ -29,8 +31,8 @@ class PlacemarkAdapter constructor(private var placemarks: List<PlacemarkModel>,
 
     override fun getItemCount(): Int = placemarks.size
 
-    class MainHolder(private val binding : CardPlacemarkBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+    class MainHolder(private val binding: CardPlacemarkBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(placemark: PlacemarkModel, listener: PlacemarkListener) {
             binding.crashType.text = placemark.title
