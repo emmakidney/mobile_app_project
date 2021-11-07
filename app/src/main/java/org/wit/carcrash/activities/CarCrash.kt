@@ -1,4 +1,4 @@
-package org.wit.placemark.activities
+package org.wit.carcrash.activities
 
 import android.content.Intent
 import android.net.Uri
@@ -9,24 +9,20 @@ import android.view.MenuItem
 import android.widget.RadioGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.Marker
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
-import org.wit.placemark.R
-import org.wit.placemark.databinding.ActivityPlacemarkBinding
-import org.wit.placemark.main.MainApp
-import org.wit.placemark.models.Location
-import org.wit.placemark.models.PlacemarkModel
-import org.wit.placemark.showImagePicker
-import timber.log.Timber
+import org.wit.carcrash.R
+import org.wit.carcrash.databinding.ActivityCarcrashBinding
+import org.wit.carcrash.main.MainApp
+import org.wit.carcrash.models.Location
+import org.wit.carcrash.models.CarCrashModel
+import org.wit.carcrash.showImagePicker
 import timber.log.Timber.i
 
-class PlacemarkActivity : AppCompatActivity() {
+class CarCrashActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPlacemarkBinding
-    var placemark = PlacemarkModel()
+    private lateinit var binding: ActivityCarcrashBinding
+    var carcrash = CarCrashModel()
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
@@ -36,43 +32,43 @@ class PlacemarkActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityPlacemarkBinding.inflate(layoutInflater)
+        binding = ActivityCarcrashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
 
-        i("Placemark Activity started...")
+        i("CarCrash Activity started...")
 
-        if (intent.hasExtra("placemark_edit")) {
+        if (intent.hasExtra("carcrash_edit")) {
             edit = true
-            placemark = intent.extras?.getParcelable("placemark_edit")!!
+            carcrash = intent.extras?.getParcelable("carcrash_edit")!!
             binding.crashType.setOnCheckedChangeListener()
-            binding.description.setText(placemark.description)
-            binding.btnAdd.setText(R.string.save_placemark)
+            binding.description.setText(carcrash.description)
+            binding.btnAdd.setText(R.string.save_carcrash)
             Picasso.get()
-                .load(placemark.image)
-                .into(binding.placemarkImage)
-            if (placemark.image != Uri.EMPTY) {
-                binding.chooseImage.setText(R.string.change_placemark_image)
+                .load(carcrash.image)
+                .into(binding.carcrashImage)
+            if (carcrash.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_carcrash_image)
             }
         }
 
         binding.btnAdd.setOnClickListener() {
-            placemark.title = binding.crashType.checkedRadioButtonId.toString()
-            placemark.description = binding.description.text.toString()
-            if (placemark.title.isEmpty()) {
-                Snackbar.make(it,R.string.enter_placemark_title, Snackbar.LENGTH_LONG)
+            carcrash.title = binding.crashType.checkedRadioButtonId.toString()
+            carcrash.description = binding.description.text.toString()
+            if (carcrash.title.isEmpty()) {
+                Snackbar.make(it,R.string.enter_carcrash_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
                 if (edit) {
-                    app.placemarks.update(placemark.copy())
+                    app.carcrashs.update(carcrash.copy())
                 } else {
-                    app.placemarks.create(placemark.copy())
+                    app.carcrashs.create(carcrash.copy())
                 }
             }
-            i("add Button Pressed: $placemark")
+            i("add Button Pressed: $carcrash")
             setResult(RESULT_OK)
             finish()
         }
@@ -81,12 +77,12 @@ class PlacemarkActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)
         }
 
-        binding.placemarkLocation.setOnClickListener {
+        binding.carcrashLocation.setOnClickListener {
             val location = Location(52.245696, -7.139102, 15f)
-            if (placemark.zoom != 0f) {
-                location.lat =  placemark.lat
-                location.lng = placemark.lng
-                location.zoom = placemark.zoom
+            if (carcrash.zoom != 0f) {
+                location.lat =  carcrash.lat
+                location.lng = carcrash.lng
+                location.zoom = carcrash.zoom
             }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
@@ -98,7 +94,7 @@ class PlacemarkActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_placemark, menu)
+        menuInflater.inflate(R.menu.menu_carcrash, menu)
         if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
@@ -106,7 +102,7 @@ class PlacemarkActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_delete -> {
-                app.placemarks.delete(placemark)
+                app.carcrashs.delete(carcrash)
                 finish()
             }
             R.id.item_cancel -> {
@@ -124,11 +120,11 @@ class PlacemarkActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            placemark.image = result.data!!.data!!
+                            carcrash.image = result.data!!.data!!
                             Picasso.get()
-                                .load(placemark.image)
-                                .into(binding.placemarkImage)
-                            binding.chooseImage.setText(R.string.change_placemark_image)
+                                .load(carcrash.image)
+                                .into(binding.carcrashImage)
+                            binding.chooseImage.setText(R.string.change_carcrash_image)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
@@ -146,9 +142,9 @@ class PlacemarkActivity : AppCompatActivity() {
                             i("Got Location ${result.data.toString()}")
                             val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             i("Location == $location")
-                            placemark.lat = location.lat
-                            placemark.lng = location.lng
-                            placemark.zoom = location.zoom
+                            carcrash.lat = location.lat
+                            carcrash.lng = location.lng
+                            carcrash.zoom = location.zoom
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

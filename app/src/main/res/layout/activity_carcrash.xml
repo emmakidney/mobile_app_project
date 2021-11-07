@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.wit.placemark.activities.PlacemarkActivity">
+    tools:context="org.wit.carcrash.activities.CarCrashActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="@string/hint_placemarkDescription"
+                    android:hint="@string/hint_carcrashDescription"
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
@@ -104,13 +104,13 @@
                     android:textSize="16sp"/>
 
                 <ImageView
-                    android:id="@+id/placemarkImage"
+                    android:id="@+id/carcrashImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srcCompat="@mipmap/ic_launcher"/>
 
                 <Button
-                    android:id="@+id/placemarkLocation"
+                    android:id="@+id/carcrashLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -131,7 +131,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:stateListAnimator="@null"
-                    android:text="@string/button_addPlacemark"
+                    android:text="@string/button_addCarCrash"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
             </LinearLayout>

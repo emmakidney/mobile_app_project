@@ -1,23 +1,23 @@
 <resources>
     <string name="app_name">Car Crash Notifier</string>
-    <string name="button_addPlacemark">Add Crash</string>
-    <string name="hint_placemarkTitle">Crash Type</string>
-    <string name="hint_placemarkDescription">Please add type and time of crash </string>
-    <string name="menu_addPlacemark">Add</string>
-    <string name="menu_cancelPlacemark">Cancel</string>
-    <string name="enter_placemark_title">Crash Alert!</string>
+    <string name="button_addCarCrash">Add Crash</string>
+    <string name="hint_carcrashTitle">Crash Type</string>
+    <string name="hint_carcrashDescription">Please add type and time of crash </string>
+    <string name="menu_addCarCrash">Add</string>
+    <string name="menu_cancelCarCrash">Cancel</string>
+    <string name="enter_carcrash_title">Crash Alert!</string>
     <string name="serious">Serious</string>
     <string name="major">Major</string>
     <string name="minor">Minor</string>
-    <string name="save_placemark"> Save Crash </string>
+    <string name="save_carcrash"> Save Crash </string>
     <string name="button_addImage"> Add Image </string>
-    <string name="select_placemark_image">Select image</string>
-    <string name="change_placemark_image">Change image</string>
+    <string name="select_carcrash_image">Select image</string>
+    <string name="change_carcrash_image">Change image</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
-    <string name="menu_deletePlacemark">Delete</string>
-    <string name="title_activity_placemark_maps">Map of All Placemarks </string>
-    <string name="placemark_image_placeholder">Placemark Imagee</string>
-    <string name="placemark_title_placeholder">Placemark Title</string>
-    <string name="placemark_description_placeholder">Placemark Description</string>
+    <string name="menu_deleteCarCrash">Delete</string>
+    <string name="title_activity_carcrash_maps">Map of All CarCrashs </string>
+    <string name="carcrash_image_placeholder">CarCrash Imagee</string>
+    <string name="carcrash_title_placeholder">CarCrash Title</string>
+    <string name="carcrash_description_placeholder">CarCrash Description</string>
 </resources>

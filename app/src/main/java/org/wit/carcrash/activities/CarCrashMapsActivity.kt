@@ -1,4 +1,4 @@
-package org.wit.placemark.activities
+package org.wit.carcrash.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,26 +7,25 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.squareup.picasso.Picasso
-import org.wit.placemark.databinding.ActivityPlacemarkMapsBinding
-import org.wit.placemark.databinding.ContentPlacemarkMapsBinding
-import org.wit.placemark.main.MainApp
+import org.wit.carcrash.databinding.ActivityCarcrashMapsBinding
+import org.wit.carcrash.databinding.ContentCarcrashMapsBinding
+import org.wit.carcrash.main.MainApp
 
-class PlacemarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class CarCrashMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
-    private lateinit var binding: ActivityPlacemarkMapsBinding
-    private lateinit var contentBinding: ContentPlacemarkMapsBinding
+    private lateinit var binding: ActivityCarcrashMapsBinding
+    private lateinit var contentBinding: ContentCarcrashMapsBinding
     lateinit var map: GoogleMap
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = application as MainApp
-        binding = ActivityPlacemarkMapsBinding.inflate(layoutInflater)
+        binding = ActivityCarcrashMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
-        contentBinding = ContentPlacemarkMapsBinding.bind(binding.root)
+        contentBinding = ContentCarcrashMapsBinding.bind(binding.root)
         contentBinding.mapView.onCreate(savedInstanceState)
         contentBinding.mapView.getMapAsync {
             map = it
@@ -37,7 +36,7 @@ class PlacemarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListen
     fun configureMap() {
         map.setOnMarkerClickListener(this)
         map.uiSettings.setZoomControlsEnabled(true)
-        app.placemarks.findAll().forEach {
+        app.carcrashs.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options).tag = it.id

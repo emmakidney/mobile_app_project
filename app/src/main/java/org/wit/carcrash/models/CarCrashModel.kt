@@ -1,11 +1,11 @@
-package org.wit.placemark.models
+package org.wit.carcrash.models
 
 import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class PlacemarkModel(var id: Long = 0,
+data class CarCrashModel(var id: Long = 0,
                           var title: String = "",
                           var crashType: String = "N/A",
                           var description: String = "",
