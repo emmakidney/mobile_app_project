@@ -53,6 +53,7 @@ class CarCrashActivity : AppCompatActivity() {
             if (carcrash.image != Uri.EMPTY) {
                 binding.chooseImage.setText(R.string.change_carcrash_image)
             }
+
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -84,7 +85,7 @@ class CarCrashActivity : AppCompatActivity() {
                 location.lng = carcrash.lng
                 location.zoom = carcrash.zoom
             }
-            val launcherIntent = Intent(this, MapActivity::class.java)
+            val launcherIntent = Intent(this, MapsActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
         }

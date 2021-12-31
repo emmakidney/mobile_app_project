@@ -20,4 +20,5 @@
     <string name="carcrash_image_placeholder">CarCrash Imagee</string>
     <string name="carcrash_title_placeholder">CarCrash Title</string>
     <string name="carcrash_description_placeholder">CarCrash Description</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
