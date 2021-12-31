@@ -24,9 +24,9 @@ class CarCrashActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCarcrashBinding
     var carcrash = CarCrashModel()
     lateinit var app: MainApp
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    //var location = Location(52.245696, -7.139102, 15f)
+    private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
+    var location = Location(52.245696, -7.139102, 15f)
     var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +36,12 @@ class CarCrashActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
+
+        binding.carcrashLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapsActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
 
         app = application as MainApp
 
@@ -60,7 +66,7 @@ class CarCrashActivity : AppCompatActivity() {
             carcrash.title = binding.crashType.checkedRadioButtonId.toString()
             carcrash.description = binding.description.text.toString()
             if (carcrash.title.isEmpty()) {
-                Snackbar.make(it,R.string.enter_carcrash_title, Snackbar.LENGTH_LONG)
+                Snackbar.make(it, R.string.enter_carcrash_title, Snackbar.LENGTH_LONG)
                     .show()
             } else {
                 if (edit) {
@@ -76,18 +82,6 @@ class CarCrashActivity : AppCompatActivity() {
 
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
-        }
-
-        binding.carcrashLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
-            if (carcrash.zoom != 0f) {
-                location.lat =  carcrash.lat
-                location.lng = carcrash.lng
-                location.zoom = carcrash.zoom
-            }
-            val launcherIntent = Intent(this, MapsActivity::class.java)
-                .putExtra("location", location)
-            mapIntentLauncher.launch(launcherIntent)
         }
 
         registerImagePickerCallback()
@@ -117,7 +111,7 @@ class CarCrashActivity : AppCompatActivity() {
         imageIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result ->
-                when(result.resultCode){
+                when (result.resultCode) {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
@@ -128,10 +122,12 @@ class CarCrashActivity : AppCompatActivity() {
                             binding.chooseImage.setText(R.string.change_carcrash_image)
                         } // end of if
                     }
-                    RESULT_CANCELED -> { } else -> { }
+                    RESULT_CANCELED -> {}
+                    else -> {}
                 }
             }
     }
+
 
     private fun registerMapCallback() {
         mapIntentLauncher =
@@ -141,18 +137,17 @@ class CarCrashActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            location = result.data!!.extras?.getParcelable("location")!!
                             i("Location == $location")
-                            carcrash.lat = location.lat
-                            carcrash.lng = location.lng
-                            carcrash.zoom = location.zoom
                         } // end of if
                     }
-                    RESULT_CANCELED -> { } else -> { }
+                    RESULT_CANCELED -> {}
+                    else -> {}
                 }
             }
     }
 }
+
 
 private fun RadioGroup.setOnCheckedChangeListener() {
     TODO("Not yet implemented")
