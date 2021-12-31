@@ -20,7 +20,7 @@
     <string name="carcrash_title_placeholder">CarCrash Title</string>
     <string name="carcrash_description_placeholder">CarCrash Description</string>
     <string name="title_activity_maps">MapsActivity</string>
-    <string name="title_activity_car_crash_maps">CarCrashMapsActivity</string>
+    <string name="title_activity_car_crash_maps">Map of all Car Crashes</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
