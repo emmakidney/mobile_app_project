@@ -23,7 +23,7 @@ class CarCrashMemStore : CarCrashStore {
     }
 
     override fun update(carcrash: CarCrashModel) {
-        var foundCarCrash: CarCrashModel? = carcrashs.find { p -> p.id == carcrash.id }
+        val foundCarCrash: CarCrashModel? = carcrashs.find { p -> p.id == carcrash.id }
         if (foundCarCrash != null) {
             foundCarCrash.title = carcrash.title
             foundCarCrash.description = carcrash.description
