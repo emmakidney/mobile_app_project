@@ -7,6 +7,7 @@
         <entry key="..\:/Users/emma/mobile_app_project/app/src/main/res/layout/activity_placemark_list.xml" value="0.18" />
         <entry key="..\:/Users/emma/mobile_app_project/app/src/main/res/menu/menu_main.xml" value="0.22" />
         <entry key="..\:/Users/emma/mobile_app_project/app/src/main/res/menu/menu_placemark.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_car_crash_maps.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_carcrash.xml" value="0.15577507598784193" />
         <entry key="app/src/main/res/layout/activity_carcrash_list.xml" value="0.15577507598784193" />
         <entry key="app/src/main/res/layout/activity_carcrash_maps.xml" value="0.15577507598784193" />
@@ -16,6 +17,7 @@
         <entry key="app/src/main/res/layout/activity_placemark_maps.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card_carcrash.xml" value="0.15577507598784193" />
         <entry key="app/src/main/res/layout/card_placemark.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_car_crash_maps.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_carcrash_maps.xml" value="0.15577507598784193" />
         <entry key="app/src/main/res/layout/content_placemark_maps.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_carcrash.xml" value="0.3153846153846154" />

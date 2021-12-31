@@ -1,76 +1,41 @@
 package org.wit.carcrash.activities
 
 import android.os.Bundle
+import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import org.wit.carcrash.databinding.ActivityCarcrashMapsBinding
-import org.wit.carcrash.databinding.ContentCarcrashMapsBinding
-import org.wit.carcrash.main.MainApp
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import org.wit.carcrash.R
+import org.wit.carcrash.activities.databinding.ActivityCarCrashMapsBinding
 
-class CarCrashMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class CarCrashMapsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCarcrashMapsBinding
-    private lateinit var contentBinding: ContentCarcrashMapsBinding
-    lateinit var map: GoogleMap
-    lateinit var app: MainApp
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityCarCrashMapsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app = application as MainApp
-        binding = ActivityCarcrashMapsBinding.inflate(layoutInflater)
+
+        binding = ActivityCarCrashMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //binding.toolbar.title = title
+
         setSupportActionBar(binding.toolbar)
-        contentBinding = ContentCarcrashMapsBinding.bind(binding.root)
-        contentBinding.mapView.onCreate(savedInstanceState)
-        contentBinding.mapView.getMapAsync {
-            map = it
-            configureMap()
+
+        val navController = findNavController(R.id.nav_host_fragment_content_car_crash_maps)
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        binding.fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
         }
     }
 
-    fun configureMap() {
-        map.setOnMarkerClickListener(this)
-        map.uiSettings.setZoomControlsEnabled(true)
-        app.carcrashs.findAll().forEach {
-            val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.title).position(loc)
-            map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
-        }
-    }
-
-    override fun onMarkerClick(marker: Marker): Boolean {
-        contentBinding.currentTitle.text = marker.title
-        return false
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        contentBinding.mapView.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        contentBinding.mapView.onLowMemory()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        contentBinding.mapView.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        contentBinding.mapView.onResume()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        contentBinding.mapView.onSaveInstanceState(outState)
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_car_crash_maps)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
     }
 }

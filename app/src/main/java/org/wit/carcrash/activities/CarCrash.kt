@@ -36,6 +36,7 @@ class CarCrashActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
+        edit = true
 
         binding.carcrashLocation.setOnClickListener {
             val location = Location(52.245696, -7.139102, 15f)
@@ -96,7 +97,7 @@ class CarCrashActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_carcrash, menu)
-        if (edit) menu.getItem(0).isVisible = true
+        if (edit && menu != null) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 

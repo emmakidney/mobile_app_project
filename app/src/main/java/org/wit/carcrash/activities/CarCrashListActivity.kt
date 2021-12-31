@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.carcrash.R
 import org.wit.carcrash.adapters.CarCrashAdapter
 import org.wit.carcrash.adapters.CarCrashListener
-import org.wit.carcrash.databinding.ActivityCarcrashMapsBinding
 import org.wit.carcrash.databinding.ActivityCarcrashListBinding
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
