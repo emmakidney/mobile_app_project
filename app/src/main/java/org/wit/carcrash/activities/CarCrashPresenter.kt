@@ -18,7 +18,7 @@ import timber.log.Timber
 
 class CarCrashPresenter(private val view: CarCrashView) {
 
-    var placemark = CarCrashModelModel()
+    var carcrash = CarCrashModelModel()
     var app: MainApp = view.application as MainApp
     var binding: ActivityCarcrashBinding = ActivityCarcrashBinding.inflate(view.layoutInflater)
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>

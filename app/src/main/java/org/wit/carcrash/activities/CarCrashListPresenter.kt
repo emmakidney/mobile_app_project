@@ -25,7 +25,7 @@ class CarCrashListPresenter(val view: CarCrashListView) {
         refreshIntentLauncher.launch(launcherIntent)
     }
 
-    fun doEditCarCrash(placemark: CarCrashModel) {
+    fun doEditCarCrash(carcrash: CarCrashModel) {
         val launcherIntent = Intent(view, CarCrashView::class.java)
         launcherIntent.putExtra("carcrash_edit", carcrash)
         mapIntentLauncher.launch(launcherIntent)
