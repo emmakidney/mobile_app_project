@@ -9,7 +9,10 @@ import android.view.MenuItem
 import android.widget.RadioGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.Marker
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import org.wit.carcrash.R
 import org.wit.carcrash.databinding.ActivityCarcrashBinding
@@ -17,6 +20,7 @@ import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.Location
 import org.wit.carcrash.models.CarCrashModel
 import org.wit.carcrash.showImagePicker
+import timber.log.Timber
 import timber.log.Timber.i
 
 class CarCrashActivity : AppCompatActivity() {
@@ -27,28 +31,16 @@ class CarCrashActivity : AppCompatActivity() {
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
     // var location = Location(52.245696, -7.139102, 15f)
-    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var edit = false
 
         binding = ActivityCarcrashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
-        edit = true
-
-        binding.carcrashLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
-            if (carcrash.zoom != 0f) {
-                location.lat =  carcrash.lat
-                location.lng = carcrash.lng
-                location.zoom = carcrash.zoom
-            }
-            val launcherIntent = Intent(this, MapsActivity::class.java)
-                .putExtra("location", location)
-            mapIntentLauncher.launch(launcherIntent)
-        }
 
         app = application as MainApp
 
@@ -91,22 +83,29 @@ class CarCrashActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)
         }
 
+        binding.carcrashLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (carcrash.zoom != 0f) {
+                location.lat =  carcrash.lat
+                location.lng = carcrash.lng
+                location.zoom = carcrash.zoom
+            }
+            val launcherIntent = Intent(this, MapsActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
         registerImagePickerCallback()
         registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_carcrash, menu)
-        if (edit && menu != null) menu.getItem(0).setVisible(true)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_delete -> {
-                app.carcrashs.delete(carcrash)
-                finish()
-            }
             R.id.item_cancel -> {
                 finish()
             }
