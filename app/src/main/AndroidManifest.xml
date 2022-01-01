@@ -25,7 +25,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.MapsActivity"
+            android:name=".activities.EditLocationView"
             android:exported="true"
             android:label="@string/title_activity_maps" />
         <activity
