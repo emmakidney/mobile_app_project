@@ -19,8 +19,7 @@ class CarCrashListActivity : AppCompatActivity(), CarCrashListener/*, MultiplePe
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityCarcrashListBinding
-    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    lateinit var presenter: CarCrashListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,15 +27,13 @@ class CarCrashListActivity : AppCompatActivity(), CarCrashListener/*, MultiplePe
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
-
+        presenter = CarCrashListPresenter(this)
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
 
         loadCarCrashs()
-        registerRefreshCallback()
-        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,42 +43,19 @@ class CarCrashListActivity : AppCompatActivity(), CarCrashListener/*, MultiplePe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_add -> {
-                val launcherIntent = Intent(this, CarCrashActivity::class.java)
-                refreshIntentLauncher.launch(launcherIntent)
-            }
-            R.id.item_map -> {
-                val launcherIntent = Intent(this, CarCrashMapsActivity::class.java)
-                mapIntentLauncher.launch(launcherIntent)
-            }
+            R.id.item_add -> { presenter.doAddCarCrash() }
+            R.id.item_map -> { presenter.doShowCarCrashsMap() }
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onCarCrashClick(carcrash: CarCrashModel) {
-        val launcherIntent = Intent(this, CarCrashActivity::class.java)
-        launcherIntent.putExtra("carcrash_edit", carcrash)
-        refreshIntentLauncher.launch(launcherIntent)
+        presenter.doEditCarCrash(carcrash)
     }
 
-    private fun registerRefreshCallback() {
-        refreshIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { loadCarCrashs() }
-    }
-
-    private fun registerMapCallback() {
-        mapIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            {  }
-    }
 
     private fun loadCarCrashs() {
-        showCarCrashs(app.carcrashs.findAll())
-    }
-
-    fun showCarCrashs (carcrashs: List<CarCrashModel>) {
-        binding.recyclerView.adapter = CarCrashAdapter(carcrashs, this)
+        binding.recyclerView.adapter = CarCrashAdapter(presenter.getCarCrashs(), this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
