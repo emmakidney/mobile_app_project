@@ -5,4 +5,5 @@ interface CarCrashStore {
     fun create(carcrash: CarCrashModel)
     fun update(carcrash: CarCrashModel)
     fun delete(carcrash: CarCrashModel)
+    fun findById(id:Long) : CarCrashModel?
 }

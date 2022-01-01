@@ -92,3 +92,8 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
         return JsonPrimitive(src.toString())
     }
 }
+
+override fun findById(id:Long) : CarCrashModel? {
+    val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
+    return foundCarCrash
+}

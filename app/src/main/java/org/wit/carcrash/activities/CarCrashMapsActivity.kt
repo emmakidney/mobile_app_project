@@ -42,12 +42,17 @@ class CarCrashMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options).tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+            map.addMarker(options).tag = it.id
         }
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        contentBinding.currentTitle.text = marker.title
-        return false
+        val tag = marker.tag as Long
+        val carcrash = app.carcrashs.findById(tag)
+        currentTitle.text = carcrash!!.title
+        currentDescription.text = carcrash!!.description
+        imageView.setImageBitmap(readImageFromPath(this@CarCrashMapsActivity, carcrash.image))
+        return true
     }
 
     override fun onDestroy() {

@@ -42,4 +42,9 @@ class CarCrashMemStore : CarCrashStore {
     private fun logAll() {
         carcrashs.forEach { i("$it") }
     }
+
+    override fun findById(id:Long) : CarCrashModel? {
+        val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
+        return foundCarCrash
+    }
 }
