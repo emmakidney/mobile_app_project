@@ -46,7 +46,7 @@ class CarCrashPresenter(private val view: CarCrashView) {
         }
         else {
             if (checkLocationPermissions(view)) {
-                //
+                doSetCurrentLocation()
             }
             carcrash.lat = location.lat
             carcrash.lng = location.lng
@@ -162,11 +162,19 @@ class CarCrashPresenter(private val view: CarCrashView) {
             view.registerForActivityResult(ActivityResultContracts.RequestPermission())
             { isGranted: Boolean ->
                 if (isGranted) {
-                   // doSetCurrentLocation()
+                    doSetCurrentLocation()
                 } else {
                     locationUpdate(location.lat, location.lng)
                 }
             }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun doSetCurrentLocation() {
+        i("setting location from doSetLocation")
+        locationService.lastLocation.addOnSuccessListener {
+            locationUpdate(it.latitude, it.longitude)
+        }
     }
 
 }
