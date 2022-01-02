@@ -7,18 +7,20 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import org.wit.carcrash.R
+import com.squareup.picasso.Picasso
 
 import org.wit.carcrash.databinding.ActivityCarCrashMapsBinding
 import org.wit.carcrash.databinding.ContentCarCrashMapsBinding
 import org.wit.carcrash.main.MainApp
+import org.wit.carcrash.models.CarCrashModel
+import org.wit.carcrash.views.map.CarCrashMapPresenter
 
-class CarCrashMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener  {
+class CarCrashMapsView : AppCompatActivity(), GoogleMap.OnMarkerClickListener  {
 
     private lateinit var binding: ActivityCarCrashMapsBinding
     private lateinit var contentBinding: ContentCarCrashMapsBinding
-    lateinit var map: GoogleMap
     lateinit var app: MainApp
+    lateinit var presenter: CarCrashListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,32 +28,27 @@ class CarCrashMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
         binding = ActivityCarCrashMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        presenter = CarCrashMapPresenter(this)
+
         contentBinding = ContentCarCrashMapsBinding.bind(binding.root)
+
         contentBinding.mapView.onCreate(savedInstanceState);
         contentBinding.mapView.getMapAsync {
-            map = it
-            configureMap()
+            presenter.doPopulateMap(it)
         }
     }
 
-    fun configureMap() {
-        map.setOnMarkerClickListener(this)
-        map.uiSettings.isZoomControlsEnabled = true
-        app.carcrashs.findAll().forEach {
-            val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.title).position(loc)
-            map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
-            map.addMarker(options).tag = it.id
-        }
+    fun showCarCrash(carcrash: CarCrashModel) {
+        contentBinding.currentTitle.text = carcrash.title
+        contentBinding.currentDescription.text = carcrash.description
+        Picasso.get()
+            .load(carcrash.image)
+            .into(contentBinding.imageView2)
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        val tag = marker.tag as Long
-        val carcrash = app.carcrashs.findById(tag)
-        currentTitle.text = carcrash!!.title
-        currentDescription.text = carcrash!!.description
-        imageView.setImageBitmap(readImageFromPath(this@CarCrashMapsActivity, carcrash.image))
+        presenter.doMarkerSelected(marker)
         return true
     }
 

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarCrash">
         <activity
-            android:name=".activities.CarCrashMapsActivity"
+            android:name=".activities.CarCrashMapsView"
             android:exported="true"
             android:label="@string/title_activity_car_crash_maps"
             android:theme="@style/Theme.CarCrash.NoActionBar" />

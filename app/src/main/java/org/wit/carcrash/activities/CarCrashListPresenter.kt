@@ -32,7 +32,7 @@ class CarCrashListPresenter(val view: CarCrashListView) {
     }
 
     fun doShowCarCrashsMap() {
-        val launcherIntent = Intent(view, CarCrashMapsActivity::class.java)
+        val launcherIntent = Intent(view, CarCrashMapsView::class.java)
         refreshIntentLauncher.launch(launcherIntent)
     }
     private fun registerRefreshCallback() {
