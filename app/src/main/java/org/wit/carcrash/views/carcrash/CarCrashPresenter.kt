@@ -170,10 +170,17 @@ class CarCrashPresenter(private val view: CarCrashView) {
     }
 
     @SuppressLint("MissingPermission")
-    fun doSetCurrentLocation() {
-        i("setting location from doSetLocation")
-        locationService.lastLocation.addOnSuccessListener {
-            locationUpdate(it.latitude, it.longitude)
+    fun doRestartLocationUpdates() {
+        var locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                if (locationResult != null && locationResult.locations != null) {
+                    val l = locationResult.locations.last()
+                    locationUpdate(l.latitude, l.longitude)
+                }
+            }
+        }
+        if (!edit) {
+            locationService.requestLocationUpdates(locationRequest, locationCallback, null)
         }
     }
 

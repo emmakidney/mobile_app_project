@@ -17,3 +17,4 @@ fun checkLocationPermissions(activity: Activity) : Boolean {
         return false
     }
 }
+

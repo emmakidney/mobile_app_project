@@ -45,6 +45,7 @@ class CarCrashView : AppCompatActivity() {
         binding.mapView2.getMapAsync {
             map = it
             presenter.doConfigureMap(map)
+            it.setOnMapClickListener { presenter.doSetLocation() }
         }
 
     }
@@ -88,9 +89,12 @@ class CarCrashView : AppCompatActivity() {
         Picasso.get()
             .load(carcrash.image)
             .into(binding.carcrashImage)
+
         if (carcrash.image != Uri.EMPTY) {
             binding.chooseImage.setText(R.string.change_carcrash_image)
         }
+        binding.lat.setText("%.6f".format(carcrash.lat))
+        binding.lng.setText("%.6f".format(carcrash.lng))
 
     }
 
@@ -119,7 +123,8 @@ class CarCrashView : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.mapView2.onResume()
+        mapView.onResume()
+        presenter.doRestartLocationUpdates()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
