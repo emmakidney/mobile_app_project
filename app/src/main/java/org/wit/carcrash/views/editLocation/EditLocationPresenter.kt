@@ -30,10 +30,9 @@ class EditLocationPresenter (val view: EditLocationView) {
         map.setOnMarkerClickListener(view)
     }
 
-    fun doUpdateLocation(lat: Double, lng: Double, zoom: Float) {
+    fun doUpdateLocation(lat: Double, lng: Double) {
         location.lat = lat
         location.lng = lng
-        location.zoom = zoom
     }
 
     fun doOnBackPressed() {
