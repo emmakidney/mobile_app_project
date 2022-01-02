@@ -4,6 +4,10 @@ import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
@@ -13,23 +17,27 @@ import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.Location
 import org.wit.carcrash.models.CarCrashModel
 import org.wit.carcrash.showImagePicker
-import org.wit.carcrash.views.location.EditLocationView
+import org.wit.carcrash.activities.EditLocationView
 import timber.log.Timber
 
 class CarCrashPresenter(private val view: CarCrashView) {
 
+    var map: GoogleMap? = null
     var carcrash = CarCrashModelModel()
     var app: MainApp = view.application as MainApp
-    var binding: ActivityCarcrashBinding = ActivityCarcrashBinding.inflate(view.layoutInflater)
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     var edit = false;
+    private val location = Location(52.245696, -7.139102, 15f)
 
     init {
         if (view.intent.hasExtra("carcrash-edit")) {
             edit = true
             carcrash = view.intent.extras?.getParcelable("carcrash_edit")!!
             view.showCarCrash(carcrash)
+        } else {
+            carcrash.lat = location.lat
+            carcrash.lng = location.lng
         }
         registerImagePickerCallback()
         registerMapCallback()
@@ -69,16 +77,34 @@ class CarCrashPresenter(private val view: CarCrashView) {
             location.lat =  carcrash.lat
             location.lng = carcrash.lng
             location.zoom = carcrash.zoom
+            locationUpdate(carcrash.lat, carcrash.lng)
         }
         val launcherIntent = Intent(view, EditLocationView::class.java)
             .putExtra("location", location)
         mapIntentLauncher.launch(launcherIntent)
     }
-    fun cacheCarCrash(title: String, description: String) {
+
+    fun cacheCarCrash (title: String, description: String) {
         carcrash.title = title;
         carcrash.description = description
     }
 
+    fun doConfigureMap(m: GoogleMap){
+        map = m
+        locationUpdate(carcrash.lat, carcrash.lng)
+    }
+
+    fun locationUpdate(lat: Double, lng: Double) {
+        carcrash.lat = lat
+        carcrash.lng = lng
+        carcrash.zoom =  15f
+        map?.clear()
+        map?.uiSettings?.isZoomControlsEnabled(true)
+        val options = MarkerOptions().title(carcrash.title).position(LatLng(carcrash.lat, carcrash.lng))
+        map?.addMarker(options)
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(carcrash.lat, carcrash.lng), carcrash.zoom))
+        view.showCarCrash(carcrash)
+    }
     private fun registerImagePickerCallback() {
 
         imageIntentLauncher =
@@ -119,8 +145,4 @@ class CarCrashPresenter(private val view: CarCrashView) {
             }
     }
 
-    fun cacheCarCrash (title: String, description: String) {
-        carcrash.title = title
-        carcrash.description = description
-    }
 }

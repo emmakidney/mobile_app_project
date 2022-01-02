@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.wit.carcrash.R
@@ -17,11 +18,11 @@ class CarCrashView : AppCompatActivity() {
 
     private lateinit var binding: ActivityCarcrashBinding
     private lateinit var presenter: CarCrashPresenter
+    lateinit var map: GoogleMap
     var carcrash = CarCrashModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         binding = ActivityCarcrashBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,6 +39,12 @@ class CarCrashView : AppCompatActivity() {
         binding.carcrashLocation.setOnClickListener {
             presenter.cacheCarCrash(carcrashTitle.text.toString(), description.text.toString())
             presenter.doSetLocation()
+        }
+
+        binding.mapView2.onCreate(savedInstanceState);
+        binding.mapView2.getMapAsync {
+            map = it
+            presenter.doConfigureMap(map)
         }
 
     }
@@ -86,5 +93,39 @@ class CarCrashView : AppCompatActivity() {
         }
 
     }
+
+    fun updateImage(image: Uri){
+        i("Image updated")
+        Picasso.get()
+            .load(image)
+            .into(binding.carcrashImage)
+        binding.chooseImage.setText(R.string.change_carcrash_image)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.mapView2.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        binding.mapView2.onLowMemory()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapView2.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mapView2.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        binding.mapView2.onSaveInstanceState(outState)
+    }
+}
 
 }
