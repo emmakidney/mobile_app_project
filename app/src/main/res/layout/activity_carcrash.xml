@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context="org.wit.carcrash.activities.CarCrashView">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-16dp">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -150,8 +157,22 @@
                     android:text="@string/button_addCarCrash"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
-            </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapView2"
+                    android:layout_width="363dp"
+                    android:layout_height="162dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="32dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/carcrashLocation" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
