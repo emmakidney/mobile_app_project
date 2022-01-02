@@ -22,7 +22,7 @@ class CarCrashMemStore : CarCrashStore {
         logAll()
     }
 
-    suspend override fun update(carcrash: CarCrashModel) {
+    override suspend fun update(carcrash: CarCrashModel) {
         val foundCarCrash: CarCrashModel? = carcrashs.find { p -> p.id == carcrash.id }
         if (foundCarCrash != null) {
             foundCarCrash.title = carcrash.title
@@ -37,12 +37,12 @@ class CarCrashMemStore : CarCrashStore {
         carcrashs.remove(carcrash)
     }
 
+    override fun findById(id: Long): CarCrashModel? {
+        TODO("Not yet implemented")
+    }
+
     private fun logAll() {
         carcrashs.forEach { i("$it") }
     }
 
-    override fun findById(id:Long) : CarCrashModel? {
-        val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
-        return foundCarCrash
-    }
 }

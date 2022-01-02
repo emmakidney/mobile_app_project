@@ -11,7 +11,7 @@ class LocationHelper {
 }
 
 @SuppressLint("RestrictedApi")
-fun createDefaultLocationRequest() : LocationRequest {
+fun createDefaultLocationRequest() : com.google.android.gms.location.LocationRequest? {
     val locationRequest = create().apply{
         interval = TimeUnit.SECONDS.toMillis(60)
         fastestInterval = TimeUnit.SECONDS.toMillis(30)

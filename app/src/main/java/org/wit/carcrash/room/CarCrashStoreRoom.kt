@@ -28,7 +28,7 @@ class CarCrashStoreRoom(val context: Context) : CarCrashStore {
         dao.create(placemark)
     }
 
-    override fun update(placemark: CarCrashModel) {
+    override suspend fun update(placemark: CarCrashModel) {
         dao.update(placemark)
     }
 

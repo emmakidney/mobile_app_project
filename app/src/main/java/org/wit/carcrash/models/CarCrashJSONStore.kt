@@ -41,7 +41,7 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
     }
 
 
-    override fun update(carcrash: CarCrashModel) {
+    override suspend fun update(carcrash: CarCrashModel) {
         val carcrashsList = findAll() as ArrayList<CarCrashModel>
         var foundCarCrash: CarCrashModel? = carcrashsList.find { p -> p.id == carcrash.id }
         if (foundCarCrash != null) {
@@ -96,7 +96,3 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
     }
 }
 
-     override fun findById(id:Long) : CarCrashModel? {
-         val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
-         return foundCarCrash
-}

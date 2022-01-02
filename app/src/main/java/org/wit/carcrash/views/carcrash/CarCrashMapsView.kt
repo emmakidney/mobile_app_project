@@ -20,7 +20,7 @@ class CarCrashMapsView : AppCompatActivity(), GoogleMap.OnMarkerClickListener  {
     private lateinit var binding: ActivityCarCrashMapsBinding
     private lateinit var contentBinding: ContentCarCrashMapsBinding
     lateinit var app: MainApp
-    lateinit var presenter: CarCrashListPresenter
+    lateinit var presenter: CarCrashMapPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,4 @@
-package org.wit.carcrash.activities
+package org.wit.carcrash.views.carcrashlist
 
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +13,7 @@ import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
 import org.wit.carcrash.views.carcrashlist.CarCrashListPresenter
 
-class CarCrashListActivity : AppCompatActivity(), CarCrashListener/*, MultiplePermissionsListener*/ {
+class CarCrashListView : AppCompatActivity(), CarCrashListener/*, MultiplePermissionsListener*/ {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityCarcrashListBinding

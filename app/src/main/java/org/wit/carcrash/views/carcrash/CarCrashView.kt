@@ -8,6 +8,8 @@ import android.view.MenuItem
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import org.wit.carcrash.R
 import org.wit.carcrash.databinding.ActivityCarcrashBinding
 import org.wit.carcrash.models.CarCrashModel
@@ -32,7 +34,7 @@ class CarCrashView : AppCompatActivity() {
         presenter = CarCrashPresenter(this)
 
         binding.chooseImage.setOnClickListener {
-            presenter.cacheCarCrash(carcrashTitle.text.toString(), description.text.toString())
+            presenter.cacheCarCrash(CarCrashTitle.text.toString(), description.text.toString())
             presenter.doSelectImage()
         }
 
