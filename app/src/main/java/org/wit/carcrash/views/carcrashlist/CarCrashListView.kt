@@ -43,6 +43,7 @@ class CarCrashListActivity : AppCompatActivity(), CarCrashListener/*, MultiplePe
         when (item.itemId) {
             R.id.item_add -> { presenter.doAddCarCrash() }
             R.id.item_map -> { presenter.doShowCarCrashsMap() }
+            R.id.item_logout -> { presenter.doLogout() }
         }
         return super.onOptionsItemSelected(item)
     }

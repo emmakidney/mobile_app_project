@@ -7,6 +7,7 @@ import org.wit.carcrash.views.carcrash.CarCrashMapsView
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
 import org.wit.carcrash.views.carcrash.CarCrashView
+import org.wit.carcrash.views.login.LoginView
 
 class CarCrashListPresenter(val view: CarCrashListView) {
 
@@ -46,5 +47,9 @@ class CarCrashListPresenter(val view: CarCrashListView) {
         mapIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             {  }
+    }
+    fun doLogout(){
+        val launcherIntent = Intent(view, LoginView::class.java)
+        editIntentLauncher.launch(launcherIntent)
     }
 }
