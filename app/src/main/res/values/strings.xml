@@ -28,6 +28,8 @@
     <string name="previous">Previous</string>
     <string name="menu_saveCarCrash">Save</string>
     <string name="title_activity_login"> Signup/Login to Car Crash</string>
+    <string name="menu_showMap">Show Map</string>
+    <string name="menu_logout">Logout</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
