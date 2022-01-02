@@ -61,6 +61,10 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
         serialize()
     }
 
+    override fun findById(id: Long): CarCrashModel? {
+        TODO("Not yet implemented")
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(carcrashs, listType)
         write(context, JSON_FILE, jsonString)
@@ -94,7 +98,7 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
     }
 }
 
-    // override fun findById(id:Long) : CarCrashModel? {
-    //    val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
-     //   return foundCarCrash
-// }
+     override fun findById(id:Long) : CarCrashModel? {
+         val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
+         return foundCarCrash
+}
