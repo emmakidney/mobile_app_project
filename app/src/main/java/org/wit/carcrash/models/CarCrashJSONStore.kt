@@ -56,7 +56,8 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
     }
 
     override fun delete(carcrash: CarCrashModel) {
-        carcrashs.remove(carcrash)
+       val foundCarCrash: CarCrashModel? = carcrashs.find {it.id == carcrash.id}
+        carcrashs.remove(foundCarCrash)
         serialize()
     }
 
@@ -93,7 +94,7 @@ class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
     }
 }
 
-override fun findById(id:Long) : CarCrashModel? {
-    val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
-    return foundCarCrash
+    override fun findById(id:Long) : CarCrashModel? {
+        val foundCarCrash CarCrashModel? = carcrashs.find { it.id == id }
+        return foundCarCrash
 }

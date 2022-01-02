@@ -31,12 +31,12 @@ class CarCrashView : AppCompatActivity() {
         presenter = CarCrashPresenter(this)
 
         binding.chooseImage.setOnClickListener {
-            presenter.cacheCarCrash(binding.carcrashTitle.text.toString(), binding.description.text.toString())
+            presenter.cacheCarCrash(carcrashTitle.text.toString(), description.text.toString())
             presenter.doSelectImage()
         }
 
         binding.carcrashLocation.setOnClickListener {
-            presenter.cacheCarCrash(binding.carcrashTitle.text.toString(), binding.description.text.toString())
+            presenter.cacheCarCrash(carcrashTitle.text.toString(), description.text.toString())
             presenter.doSetLocation()
         }
 
@@ -48,7 +48,7 @@ class CarCrashView : AppCompatActivity() {
         if (presenter.edit){
             deleteMenu.setVisible(true)
         }
-        else{
+        else {
             deleteMenu.setVisible(false)
         }
         return super.onCreateOptionsMenu(menu)
@@ -85,14 +85,6 @@ class CarCrashView : AppCompatActivity() {
             binding.chooseImage.setText(R.string.change_carcrash_image)
         }
 
-    }
-
-    fun updateImage(image: Uri){
-        i("Image updated")
-        Picasso.get()
-            .load(image)
-            .into(binding.carcrashImage)
-        binding.chooseImage.setText(R.string.change_carcrash_image)
     }
 
 }

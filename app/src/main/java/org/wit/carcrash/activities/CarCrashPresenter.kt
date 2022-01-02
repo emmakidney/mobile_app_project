@@ -118,4 +118,9 @@ class CarCrashPresenter(private val view: CarCrashView) {
 
             }
     }
+
+    fun cacheCarCrash (title: String, description: String) {
+        carcrash.title = title
+        carcrash.description = description
+    }
 }

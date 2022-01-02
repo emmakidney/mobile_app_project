@@ -59,4 +59,12 @@ class CarCrashListActivity : AppCompatActivity(), CarCrashListener/*, MultiplePe
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
+    override fun onResume() {
+        //update the view
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        i("recyclerView onResume")
+        super.onResume()
+    }
+
+
 }
