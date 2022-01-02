@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 import org.wit.carcrash.databinding.ActivityCarCrashMapsBinding
 import org.wit.carcrash.databinding.ContentCarCrashMapsBinding
@@ -32,7 +35,9 @@ class CarCrashMapsView : AppCompatActivity(), GoogleMap.OnMarkerClickListener  {
 
         contentBinding.mapView.onCreate(savedInstanceState);
         contentBinding.mapView.getMapAsync {
-            presenter.doPopulateMap(it)
+            GlobalScope.launch(Dispatchers.Main) {
+                presenter.doPopulateMap(it)
+            }
         }
     }
 
@@ -45,7 +50,9 @@ class CarCrashMapsView : AppCompatActivity(), GoogleMap.OnMarkerClickListener  {
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        presenter.doMarkerSelected(marker)
+        GlobalScope.launch(Dispatchers.Main) {
+            presenter.doMarkerSelected(marker)
+        }
         return true
     }
 

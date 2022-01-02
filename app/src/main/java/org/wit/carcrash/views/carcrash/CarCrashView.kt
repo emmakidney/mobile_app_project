@@ -69,12 +69,20 @@ class CarCrashView : AppCompatActivity() {
                     Snackbar.make(binding.root, R.string.enter_carcrash_title, Snackbar.LENGTH_LONG)
                         .show()
                 } else {
-                    presenter.doAddOrSave(binding.carcrashTitle.text.toString(), binding.description.text.toString())
+                    GlobalScope.launch(Dispatchers.IO) {
+                        presenter.doAddOrSave(
+                            binding.carcrashTitle.text.toString(),
+                            binding.description.text.toString()
+                        )
+                    }
                 }
             }
             R.id.item_delete -> {
-                presenter.doDelete()
+                GlobalScope.launch(Dispatchers.IO){
+                    presenter.doDelete()
+                }
             }
+
             R.id.item_cancel -> {
                 presenter.doCancel()
             }

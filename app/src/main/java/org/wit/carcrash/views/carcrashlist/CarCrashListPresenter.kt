@@ -20,7 +20,7 @@ class CarCrashListPresenter(val view: CarCrashListView) {
         registerRefreshCallback()
     }
 
-    fun getCarCrashs() = app.carcrashs.findAll()
+    suspend fun getCarCrashs() = app.carcrashs.findAll()
 
     fun doAddCarCrash() {
         val launcherIntent = Intent(view, CarCrashView::class.java)
