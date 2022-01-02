@@ -1,10 +1,12 @@
-package org.wit.carcrash.activities
+package org.wit.carcrash.views.carcrashlist
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import org.wit.carcrash.views.carcrash.CarCrashMapsView
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
+import org.wit.carcrash.views.carcrash.CarCrashView
 
 class CarCrashListPresenter(val view: CarCrashListView) {
 

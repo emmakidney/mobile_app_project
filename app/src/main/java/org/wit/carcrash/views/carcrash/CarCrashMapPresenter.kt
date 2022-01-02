@@ -1,11 +1,10 @@
-package org.wit.carcrash.views.map
+package org.wit.carcrash.views.carcrash
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import org.wit.carcrash.activities.CarCrashMapsView
 import org.wit.carcrash.main.MainApp
 
 class CarCrashMapPresenter(val view: CarCrashMapsView) {

@@ -1,4 +1,4 @@
-package org.wit.carcrash.activities
+package org.wit.carcrash.views.carcrash
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
@@ -8,16 +8,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.squareup.picasso.MemoryPolicy
-import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.Picasso
-import org.wit.carcrash.R
-import org.wit.carcrash.databinding.ActivityCarcrashBinding
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.Location
-import org.wit.carcrash.models.CarCrashModel
 import org.wit.carcrash.showImagePicker
-import org.wit.carcrash.activities.EditLocationView
+import org.wit.carcrash.views.editLocation.EditLocationView
 import timber.log.Timber
 
 class CarCrashPresenter(private val view: CarCrashView) {

@@ -1,4 +1,4 @@
-package org.wit.carcrash.activities
+package org.wit.carcrash.views.carcrash
 
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity

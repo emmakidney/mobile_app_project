@@ -1,11 +1,8 @@
 package org.wit.carcrash.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.carcrash.R
@@ -14,6 +11,7 @@ import org.wit.carcrash.adapters.CarCrashListener
 import org.wit.carcrash.databinding.ActivityCarcrashListBinding
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
+import org.wit.carcrash.views.carcrashlist.CarCrashListPresenter
 
 class CarCrashListActivity : AppCompatActivity(), CarCrashListener/*, MultiplePermissionsListener*/ {
 

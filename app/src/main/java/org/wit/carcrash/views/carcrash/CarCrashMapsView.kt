@@ -1,19 +1,16 @@
-package org.wit.carcrash.activities
+package org.wit.carcrash.views.carcrash
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 
 import org.wit.carcrash.databinding.ActivityCarCrashMapsBinding
 import org.wit.carcrash.databinding.ContentCarCrashMapsBinding
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
-import org.wit.carcrash.views.map.CarCrashMapPresenter
+import org.wit.carcrash.views.carcrashlist.CarCrashListPresenter
 
 class CarCrashMapsView : AppCompatActivity(), GoogleMap.OnMarkerClickListener  {
 

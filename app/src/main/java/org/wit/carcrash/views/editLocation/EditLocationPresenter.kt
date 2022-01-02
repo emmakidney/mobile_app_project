@@ -1,4 +1,4 @@
-package org.wit.carcrash.activities
+package org.wit.carcrash.views.editLocation
 
 import android.app.Activity
 import android.content.Intent

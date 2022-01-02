@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarCrash">
         <activity
-            android:name=".activities.CarCrashMapsView"
+            android:name=".views.carcrash.CarCrashMapsView"
             android:exported="true"
             android:label="@string/title_activity_car_crash_maps"
             android:theme="@style/Theme.CarCrash.NoActionBar" />
@@ -25,7 +25,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activities.EditLocationView"
+            android:name=".views.editLocation.EditLocationView"
             android:exported="true"
             android:label="@string/title_activity_maps" />
         <activity
@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CarCrashView" />
+        <activity android:name=".views.carcrash.CarCrashView" />
     </application>
 
 </manifest>

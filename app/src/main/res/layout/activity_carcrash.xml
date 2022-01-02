@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.wit.carcrash.activities.CarCrashView">
+    tools:context="org.wit.carcrash.views.carcrash.CarCrashView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -67,7 +67,6 @@
                     android:id="@+id/crashType"
                     android:layout_width="181dp"
                     android:layout_height="128dp"
-                    android:layout_above="@+id/progressBar"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
@@ -100,6 +99,7 @@
                         android:checked="false"
                         android:text="@string/minor" />
                 </RadioGroup>
+            </LinearLayout>
 
                 <EditText
                     android:id="@+id/description"
@@ -172,7 +172,5 @@
                     app:layout_constraintTop_toBottomOf="@+id/carcrashLocation" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</RelativeLayout>
-
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
