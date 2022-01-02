@@ -22,16 +22,14 @@ class CarCrashMemStore : CarCrashStore {
         logAll()
     }
 
-    override fun update(carcrash: CarCrashModel) {
+    suspend override fun update(carcrash: CarCrashModel) {
         val foundCarCrash: CarCrashModel? = carcrashs.find { p -> p.id == carcrash.id }
         if (foundCarCrash != null) {
             foundCarCrash.title = carcrash.title
             foundCarCrash.description = carcrash.description
             foundCarCrash.image = carcrash.image
-            foundCarCrash.lat = carcrash.lat
-            foundCarCrash.lng = carcrash.lng
-            foundCarCrash.zoom = carcrash.zoom
-            logAll()
+            foundCarCrash.location = carcrash.location
+            logAll();
         }
     }
 

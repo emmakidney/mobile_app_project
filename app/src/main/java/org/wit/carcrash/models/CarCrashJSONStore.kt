@@ -48,9 +48,7 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
             foundCarCrash.title = carcrash.title
             foundCarCrash.description = carcrash.description
             foundCarCrash.image = carcrash.image
-            foundCarCrash.lat = carcrash.lat
-            foundCarCrash.lng = carcrash.lng
-            foundCarCrash.zoom = carcrash.zoom
+            foundCarCrash.location = carcrash.location
         }
         serialize()
     }
