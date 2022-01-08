@@ -1,4 +1,4 @@
-package org.wit.carcrash.adapters
+package org.wit.carcrash.views.carcrashlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

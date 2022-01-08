@@ -8,12 +8,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 import org.wit.carcrash.databinding.ActivityCarCrashMapsBinding
 import org.wit.carcrash.databinding.ContentCarCrashMapsBinding
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
-import org.wit.carcrash.views.carcrashlist.CarCrashListPresenter
 
 class CarCrashMapsView : AppCompatActivity(), GoogleMap.OnMarkerClickListener  {
 

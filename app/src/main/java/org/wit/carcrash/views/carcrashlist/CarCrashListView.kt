@@ -5,13 +5,13 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.*
 import org.wit.carcrash.R
-import org.wit.carcrash.adapters.CarCrashAdapter
-import org.wit.carcrash.adapters.CarCrashListener
 import org.wit.carcrash.databinding.ActivityCarcrashListBinding
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
-import org.wit.carcrash.views.carcrashlist.CarCrashListPresenter
+import timber.log.Timber.i
 
 class CarCrashListView : AppCompatActivity(), CarCrashListener/*, MultiplePermissionsListener*/ {
 
@@ -26,17 +26,22 @@ class CarCrashListView : AppCompatActivity(), CarCrashListener/*, MultiplePermis
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
         presenter = CarCrashListPresenter(this)
-        app = application as MainApp
-
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-
-        loadCarCrashs()
+        updateRecyclerView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onResume() {
+        //update the view
+        super.onResume()
+        updateRecyclerView()
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        i("recyclerView onResume")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -53,17 +58,11 @@ class CarCrashListView : AppCompatActivity(), CarCrashListener/*, MultiplePermis
     }
 
 
-    private fun loadCarCrashs() {
-        binding.recyclerView.adapter = CarCrashAdapter(presenter.getCarCrashs(), this)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
+    private fun updateRecyclerView() {
+        GlobalScope.launch(Dispatchers.Main) {
+            binding.recyclerView.adapter =
+                CarCrashAdapter(presenter.getCarCrashs(), this@CarCrashListView)
+        }
     }
-
-    override fun onResume() {
-        //update the view
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        i("recyclerView onResume")
-        super.onResume()
-    }
-
 
 }

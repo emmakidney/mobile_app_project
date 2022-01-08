@@ -10,11 +10,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.wit.carcrash.R
 import org.wit.carcrash.databinding.ActivityCarcrashBinding
 import org.wit.carcrash.models.CarCrashModel
 import timber.log.Timber.i
-
 
 class CarCrashView : AppCompatActivity() {
 
@@ -34,12 +34,12 @@ class CarCrashView : AppCompatActivity() {
         presenter = CarCrashPresenter(this)
 
         binding.chooseImage.setOnClickListener {
-            presenter.cacheCarCrash(CarCrashTitle.text.toString(), description.text.toString())
+            presenter.cacheCarCrash(carcrash.title.toString(), carcrash.description.toString())
             presenter.doSelectImage()
         }
 
-        binding.carcrashLocation.setOnClickListener {
-            presenter.cacheCarCrash(carcrashTitle.text.toString(), description.text.toString())
+        binding.mapView2.setOnClickListener {
+            presenter.cacheCarCrash(carcrash.title.toString(), carcrash.description.toString())
             presenter.doSetLocation()
         }
 
@@ -93,8 +93,8 @@ class CarCrashView : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
     fun showCarCrash(carcrash: CarCrashModel) {
-        binding.carcrashTitle.setText(carcrash.title)
-        binding.description.setText(carcrash.description)
+        if (binding.carcrashTitle.text.isEmpty()) binding.carcrashTitle.setText(carcrash.title)
+        if (binding.description.text.isEmpty()) binding.description.setText(carcrash.description)
 
         Picasso.get()
             .load(carcrash.image)
@@ -133,7 +133,7 @@ class CarCrashView : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        mapView.onResume()
+        binding.mapView2.onResume()
         presenter.doRestartLocationUpdates()
     }
 
@@ -143,4 +143,3 @@ class CarCrashView : AppCompatActivity() {
     }
 }
 
-}

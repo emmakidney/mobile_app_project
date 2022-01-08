@@ -13,10 +13,12 @@ data class CarCrashModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                          var title: String = "",
                          var crashType: String = "N/A",
                          var description: String = "",
-                         var image: Uri = Uri.EMPTY,
-                         @Embedded var location: Location = Location()) : Parcelable
+                         var image: String = "",
+                         var lat : Double = 0.0,
+                         var lng : Double = 0.0,
+                         var zoom: Float = 0f) : Parcelable
 
 @Parcelize
-data class Location(var lat: Double = 0.0,
-                    var lng: Double = 0.0,
-                    var zoom: Float = 0f) : Parcelable
+data class Location(var lat: Double= 0.0,
+                    var lng: Double= 0.0,
+                    var zoom: Float = 0f) :Parcelable

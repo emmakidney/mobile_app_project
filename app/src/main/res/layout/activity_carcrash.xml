@@ -60,49 +60,6 @@
             <requestFocus />
         </EditText>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RadioGroup
-                    android:id="@+id/crashType"
-                    android:layout_width="181dp"
-                    android:layout_height="128dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.042"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/crashType"
-                    app:layout_constraintVertical_bias="0.276">
-
-                    <RadioButton
-                        android:id="@+id/Serious"
-                        android:layout_width="97dp"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="@string/serious" />
-
-                    <RadioButton
-                        android:id="@+id/Major"
-                        android:layout_width="97dp"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="@string/major" />
-                    <RadioButton
-                        android:id="@+id/Minor"
-                        android:layout_width="97dp"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="@string/minor" />
-                </RadioGroup>
-            </LinearLayout>
-
                 <EditText
                     android:id="@+id/description"
                     android:layout_width="match_parent"
@@ -114,7 +71,8 @@
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="MissingConstraints" />
 
                 <Button
                     android:id="@+id/chooseImage"
@@ -126,13 +84,15 @@
                     android:paddingTop="8dp"
                     android:text="@string/button_addImage"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    tools:ignore="MissingConstraints" />
 
                 <ImageView
                     android:id="@+id/carcrashImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"/>
+                    app:srcCompat="@mipmap/ic_launcher"
+                    tools:ignore="MissingConstraints" />
 
                 <Button
                     android:id="@+id/carcrashLocation"
@@ -145,7 +105,8 @@
                     android:stateListAnimator="@null"
                     android:text="@string/button_location"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    tools:ignore="MissingConstraints" />
 
                 <Button
                     android:id="@+id/btnAdd"
@@ -158,7 +119,8 @@
                     android:stateListAnimator="@null"
                     android:text="@string/button_addCarCrash"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="MissingConstraints" />
 
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/mapView2"

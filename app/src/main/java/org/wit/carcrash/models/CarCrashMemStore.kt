@@ -12,11 +12,11 @@ class CarCrashMemStore : CarCrashStore {
 
     val carcrashs = ArrayList<CarCrashModel>()
 
-    override fun findAll(): List<CarCrashModel> {
+    override suspend fun findAll(): List<CarCrashModel> {
         return carcrashs
     }
 
-    override fun create(carcrash: CarCrashModel) {
+    override suspend fun create(carcrash: CarCrashModel) {
         carcrash.id = getId()
         carcrashs.add(carcrash)
         logAll()
@@ -28,17 +28,21 @@ class CarCrashMemStore : CarCrashStore {
             foundCarCrash.title = carcrash.title
             foundCarCrash.description = carcrash.description
             foundCarCrash.image = carcrash.image
-            foundCarCrash.location = carcrash.location
+            foundCarCrash.lat = carcrash.lat
+            foundCarCrash.lng = carcrash.lng
+            foundCarCrash.zoom = carcrash.zoom
             logAll();
         }
     }
 
-    override fun delete(carcrash: CarCrashModel) {
+    override suspend fun delete(carcrash: CarCrashModel) {
         carcrashs.remove(carcrash)
+        logAll()
     }
 
-    override fun findById(id: Long): CarCrashModel? {
-        TODO("Not yet implemented")
+    override suspend fun findById(id: Long): CarCrashModel? {
+        val foundCarCrash: CarCrashModel? = carcrashs.find { it.id == id}
+        return foundCarCrash
     }
 
     private fun logAll() {

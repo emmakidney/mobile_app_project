@@ -1,7 +1,8 @@
-package org.wit.carcrash
+package org.wit.carcrash.helpers
 
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
+import org.wit.carcrash.R
 
 fun showImagePicker(intentLauncher : ActivityResultLauncher<Intent>) {
 

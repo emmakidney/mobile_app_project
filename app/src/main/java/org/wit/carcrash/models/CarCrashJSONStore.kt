@@ -29,12 +29,12 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
         }
     }
 
-    override fun findAll(): MutableList<CarCrashModel> {
+    override suspend fun findAll(): MutableList<CarCrashModel> {
         logAll()
         return carcrashs
     }
 
-    override fun create(carcrash: CarCrashModel) {
+    override suspend fun create(carcrash: CarCrashModel) {
         carcrash.id = generateRandomId()
         carcrashs.add(carcrash)
         serialize()
@@ -48,19 +48,22 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
             foundCarCrash.title = carcrash.title
             foundCarCrash.description = carcrash.description
             foundCarCrash.image = carcrash.image
-            foundCarCrash.location = carcrash.location
+            foundCarCrash.lat = carcrash.lat
+            foundCarCrash.lng = carcrash.lng
+            foundCarCrash.zoom = carcrash.zoom
         }
         serialize()
     }
 
-    override fun delete(carcrash: CarCrashModel) {
+    override suspend fun delete(carcrash: CarCrashModel) {
        val foundCarCrash: CarCrashModel? = carcrashs.find {it.id == carcrash.id}
         carcrashs.remove(foundCarCrash)
         serialize()
     }
 
-    override fun findById(id: Long): CarCrashModel? {
-        TODO("Not yet implemented")
+    override suspend fun findById(id: Long): CarCrashModel? {
+        val foundCarCrash: CarCrashModel? = carcrashs.find {it.id == id}
+        return foundCarCrash
     }
 
     private fun serialize() {

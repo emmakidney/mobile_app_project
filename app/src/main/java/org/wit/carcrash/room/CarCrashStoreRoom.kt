@@ -16,15 +16,15 @@ class CarCrashStoreRoom(val context: Context) : CarCrashStore {
         dao = database.carcrashDao()
     }
 
-    override fun findAll(): List<CarCrashModel> {
+    override suspend fun findAll(): List<CarCrashModel> {
         return dao.findAll()
     }
 
-    override fun findById(id: Long): CarCrashModel? {
+    override suspend fun findById(id: Long): CarCrashModel? {
         return dao.findById(id)
     }
 
-    override fun create(placemark: CarCrashModel) {
+    override suspend fun create(placemark: CarCrashModel) {
         dao.create(placemark)
     }
 
@@ -32,7 +32,7 @@ class CarCrashStoreRoom(val context: Context) : CarCrashStore {
         dao.update(placemark)
     }
 
-    override fun delete(placemark: CarCrashModel) {
+    override suspend fun delete(placemark: CarCrashModel) {
         dao.deleteCarCrash(placemark)
     }
 

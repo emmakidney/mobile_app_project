@@ -18,7 +18,7 @@ import org.wit.carcrash.helpers.createDefaultLocationRequest
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.Location
 import org.wit.carcrash.models.CarCrashModel
-import org.wit.carcrash.showImagePicker
+import org.wit.carcrash.helpers.showImagePicker
 import org.wit.carcrash.views.editLocation.EditLocationView
 import timber.log.Timber
 import timber.log.Timber.i
@@ -38,9 +38,9 @@ class CarCrashPresenter(private val view: CarCrashView) {
 
 
     init {
-
-        registerMapCallback()
         doPermissionLauncher()
+        registerImagePickerCallback()
+        registerMapCallback()
 
         if (view.intent.hasExtra("carcrash-edit")) {
             edit = true
@@ -51,8 +51,8 @@ class CarCrashPresenter(private val view: CarCrashView) {
             if (checkLocationPermissions(view)) {
                 doSetCurrentLocation()
             }
-            carcrash.location.lat = location.lat
-            carcrash.location.lng = location.lng
+            carcrash.lat = location.lat
+            carcrash.lng = location.lng
         }
 
     }
@@ -75,7 +75,7 @@ class CarCrashPresenter(private val view: CarCrashView) {
 
     }
 
-    fun doDelete() {
+    suspend fun doDelete() {
         app.carcrashs.delete(carcrash)
         view.finish()
 
@@ -87,12 +87,12 @@ class CarCrashPresenter(private val view: CarCrashView) {
 
     fun doSetLocation() {
 
-        if (carcrash.location.zoom != 0f) {
+        if (carcrash.zoom != 0f) {
 
-            location.lat =  carcrash.location.lat
-            location.lng = carcrash.location.lng
-            location.zoom = carcrash.location.zoom
-            locationUpdate(carcrash.location.lat, carcrash.location.lng)
+            location.lat =  carcrash.lat
+            location.lng = carcrash.lng
+            location.zoom = carcrash.zoom
+            locationUpdate(carcrash.lat, carcrash.lng)
         }
         val launcherIntent = Intent(view, EditLocationView::class.java)
             .putExtra("location", location)
@@ -129,17 +129,37 @@ class CarCrashPresenter(private val view: CarCrashView) {
 
     fun doConfigureMap(m: GoogleMap){
         map = m
-        locationUpdate(carcrash.location.lat, carcrash.location.lng)
+        locationUpdate(carcrash.lat, carcrash.lng)
     }
 
     fun locationUpdate(lat: Double, lng: Double) {
-        carcrash.location = location
+        carcrash.lat = lat
+        carcrash.lng = lng
+        carcrash.zoom = 15f
         map?.clear()
         map?.uiSettings?.isZoomControlsEnabled = true
-        val options = MarkerOptions().title(carcrash.title).position(LatLng(carcrash.location.lat, carcrash.location.lng))
+        val options = MarkerOptions().title(carcrash.title).position(LatLng(carcrash.lat, carcrash.lng))
         map?.addMarker(options)
-        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(carcrash.location.lat, carcrash.location.lng), carcrash.location.zoom))
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(carcrash.lat, carcrash.lng), carcrash.zoom))
         view.showCarCrash(carcrash)
+    }
+
+    private fun registerImagePickerCallback() {
+
+        imageIntentLauncher =
+            view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    AppCompatActivity.RESULT_OK -> {
+                        if(result.data != null) {
+                            Timber.i("Got Result ${result.data!!.data}")
+                            carcrash.image = result.data!!.data
+                            view.updateImage(carcrash.image)
+                        }
+                    }
+                    AppCompatActivity.RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 
     private fun registerMapCallback() {
@@ -152,7 +172,9 @@ class CarCrashPresenter(private val view: CarCrashView) {
                             Timber.i("Got Location ${result.data.toString()}")
                             val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             Timber.i("Location == $location")
-                            carcrash.location = location
+                            carcrash.lat = location.lat
+                            carcrash.lng = location.lng
+                            carcrash.zoom = location.zoom
                         } // end of if
                     }
                     AppCompatActivity.RESULT_CANCELED -> { } else -> { }

@@ -3,21 +3,24 @@ package org.wit.carcrash.views.carcrashlist
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.wit.carcrash.views.carcrash.CarCrashMapsView
 import org.wit.carcrash.main.MainApp
 import org.wit.carcrash.models.CarCrashModel
 import org.wit.carcrash.views.carcrash.CarCrashView
 import org.wit.carcrash.views.login.LoginView
 import org.wit.carcrash.views.carcrashlist.CarCrashListView
+
 class CarCrashListPresenter(val view: CarCrashListView) {
 
-    var app: MainApp
+    var app: MainApp = view.application as MainApp
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var editIntentLauncher : ActivityResultLauncher<Intent>
 
     init {
-        app = view.application as MainApp
-        registerMapCallback()
+        registerEditCallback()
         registerRefreshCallback()
     }
 
@@ -25,28 +28,34 @@ class CarCrashListPresenter(val view: CarCrashListView) {
 
     fun doAddCarCrash() {
         val launcherIntent = Intent(view, CarCrashView::class.java)
-        refreshIntentLauncher.launch(launcherIntent)
+        editIntentLauncher.launch(launcherIntent)
     }
 
     fun doEditCarCrash(carcrash: CarCrashModel) {
         val launcherIntent = Intent(view, CarCrashView::class.java)
         launcherIntent.putExtra("carcrash_edit", carcrash)
-        mapIntentLauncher.launch(launcherIntent)
+        editIntentLauncher.launch(launcherIntent)
     }
 
     fun doShowCarCrashsMap() {
         val launcherIntent = Intent(view, CarCrashMapsView::class.java)
-        refreshIntentLauncher.launch(launcherIntent)
+        editIntentLauncher.launch(launcherIntent)
     }
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { getCarCrashs() }
+            {
+                GlobalScope.launch(Dispatchers.Main) {
+                    getCarCrashs()
+                }
+            }
     }
-    private fun registerMapCallback() {
-        mapIntentLauncher =
+
+    private fun registerEditCallback() {
+        editIntentLauncher =
             view.registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             {  }
+
     }
     fun doLogout(){
         val launcherIntent = Intent(view, LoginView::class.java)

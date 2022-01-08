@@ -18,10 +18,10 @@ class CarCrashMapPresenter(val view: CarCrashMapsView) {
         map.uiSettings.setZoomControlsEnabled(true)
         map.setOnMarkerClickListener(view)
         app.carcrashs.findAll().forEach {
-            val loc = LatLng(it.location.lat, it.location.lng)
+            val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options)?.tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.location.zoom))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
         }
     }
 

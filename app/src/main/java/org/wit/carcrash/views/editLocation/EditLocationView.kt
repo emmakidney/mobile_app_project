@@ -2,13 +2,10 @@ package org.wit.carcrash.views.editLocation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
-import org.wit.carcrash.R
 import org.wit.carcrash.models.Location
+import org.wit.carcrash.databinding.ActivityMapBinding
 
 
 class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
@@ -20,7 +17,8 @@ class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, Go
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        binding = ActivityMapBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         presenter = EditLocationPresenter(this)
 
@@ -33,13 +31,7 @@ class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, Go
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        presenter.initMap(map)
-    }
-
     override fun onMarkerDragStart(marker: Marker) {
-
     }
 
     override fun onMarkerDrag(marker: Marker) {
@@ -86,3 +78,4 @@ class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, Go
     }
 
 }
+
