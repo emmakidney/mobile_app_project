@@ -8,9 +8,11 @@ import org.wit.carcrash.models.Location
 import org.wit.carcrash.databinding.ActivityMapBinding
 
 
-class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
+class EditLocationView : AppCompatActivity(),
+    GoogleMap.OnMarkerDragListener,
+    GoogleMap.OnMarkerClickListener {
 
-    private lateinit var binding: ActvityMapBinding
+    private lateinit var binding: ActivityMapBinding
     private lateinit var map: GoogleMap
     lateinit var presenter: EditLocationPresenter
     var location = Location()
@@ -40,7 +42,7 @@ class EditLocationView : AppCompatActivity(), GoogleMap.OnMarkerDragListener, Go
     }
 
     override fun onMarkerDragEnd(marker: Marker) {
-        presenter.doUpdateLocation(marker.position.latitude,marker.position.longitude, map.cameraPosition.zoom)
+        presenter.doUpdateLocation(marker.position.latitude,marker.position.longitude)
     }
 
     override fun onBackPressed() {

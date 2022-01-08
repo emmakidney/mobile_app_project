@@ -153,7 +153,7 @@ class CarCrashPresenter(private val view: CarCrashView) {
                     AppCompatActivity.RESULT_OK -> {
                         if(result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
-                            carcrash.image = result.data!!.data
+                            carcrash.image = result.data!!.data!!
                             view.updateImage(carcrash.image)
                         }
                     }

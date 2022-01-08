@@ -34,12 +34,12 @@ class CarCrashView : AppCompatActivity() {
         presenter = CarCrashPresenter(this)
 
         binding.chooseImage.setOnClickListener {
-            presenter.cacheCarCrash(carcrash.title.toString(), carcrash.description.toString())
+            presenter.cacheCarCrash(binding.carcrashTitle.text.toString(), binding.description.text.toString())
             presenter.doSelectImage()
         }
 
         binding.mapView2.setOnClickListener {
-            presenter.cacheCarCrash(carcrash.title.toString(), carcrash.description.toString())
+            presenter.cacheCarCrash(binding.carcrashTitle.text.toString(), binding.description.text.toString())
             presenter.doSetLocation()
         }
 
