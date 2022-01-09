@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "223348539125",
+    "project_id": "carcrashapp-a3ed4",
+    "storage_bucket": "carcrashapp-a3ed4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223348539125:android:38420b2a5d57f77fbbcfbc",
+        "android_client_info": {
+          "package_name": "org.wit.carcrash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223348539125-35j1q8ppllr3ketqfnf240bj9r4ll5hr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGqwNTvlAMpyQt6-1dnDnSFgl1_Y0grrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223348539125-35j1q8ppllr3ketqfnf240bj9r4ll5hr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

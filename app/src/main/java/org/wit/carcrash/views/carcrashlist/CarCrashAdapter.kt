@@ -37,7 +37,12 @@ class CarCrashAdapter constructor(
         fun bind(carcrash: CarCrashModel, listener: CarCrashListener) {
             binding.crashType.text = carcrash.title
             binding.description.text = carcrash.description
-            Picasso.get().load(carcrash.image).resize(200,200).into(binding.imageIcon)
+            if (carcrash.image != "") {
+                Picasso.get()
+                    .load(carcrash.image)
+                    .resize(200, 200)
+                    .into(binding.imageIcon)
+            }
             binding.root.setOnClickListener { listener.onCarCrashClick(carcrash) }
         }
     }

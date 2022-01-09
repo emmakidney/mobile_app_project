@@ -48,9 +48,7 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
             foundCarCrash.title = carcrash.title
             foundCarCrash.description = carcrash.description
             foundCarCrash.image = carcrash.image
-            foundCarCrash.lat = carcrash.lat
-            foundCarCrash.lng = carcrash.lng
-            foundCarCrash.zoom = carcrash.zoom
+            foundCarCrash.location = carcrash.location
         }
         serialize()
     }
@@ -78,6 +76,10 @@ class CarCrashJSONStore(private val context: Context) : CarCrashStore {
 
     private fun logAll() {
         carcrashs.forEach { Timber.i("$it") }
+    }
+
+    override suspend fun clear(){
+        carcrashs.clear()
     }
 }
 

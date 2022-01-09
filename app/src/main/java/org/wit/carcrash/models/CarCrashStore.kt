@@ -6,4 +6,5 @@ interface CarCrashStore {
     suspend fun update(carcrash: CarCrashModel)
     suspend fun delete(carcrash: CarCrashModel)
     suspend fun findById(id:Long) : CarCrashModel?
+    suspend fun clear()
 }

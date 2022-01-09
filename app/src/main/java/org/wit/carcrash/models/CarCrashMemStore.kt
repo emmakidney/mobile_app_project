@@ -28,9 +28,7 @@ class CarCrashMemStore : CarCrashStore {
             foundCarCrash.title = carcrash.title
             foundCarCrash.description = carcrash.description
             foundCarCrash.image = carcrash.image
-            foundCarCrash.lat = carcrash.lat
-            foundCarCrash.lng = carcrash.lng
-            foundCarCrash.zoom = carcrash.zoom
+            foundCarCrash.location = carcrash.location
             logAll();
         }
     }
@@ -49,4 +47,7 @@ class CarCrashMemStore : CarCrashStore {
         carcrashs.forEach { i("$it") }
     }
 
+    override suspend fun clear(){
+        carcrashs.clear()
+    }
 }

@@ -36,7 +36,6 @@ class CarCrashPresenter(private val view: CarCrashView) {
     var edit = false;
     private val location = Location(52.245696, -7.139102, 15f)
 
-
     init {
         doPermissionLauncher()
         registerImagePickerCallback()
@@ -51,8 +50,8 @@ class CarCrashPresenter(private val view: CarCrashView) {
             if (checkLocationPermissions(view)) {
                 doSetCurrentLocation()
             }
-            carcrash.lat = location.lat
-            carcrash.lng = location.lng
+            carcrash.location.lat = location.lat
+            carcrash.location.lng = location.lng
         }
 
     }
@@ -87,12 +86,12 @@ class CarCrashPresenter(private val view: CarCrashView) {
 
     fun doSetLocation() {
 
-        if (carcrash.zoom != 0f) {
+        if (carcrash.location.zoom != 0f) {
 
-            location.lat =  carcrash.lat
-            location.lng = carcrash.lng
-            location.zoom = carcrash.zoom
-            locationUpdate(carcrash.lat, carcrash.lng)
+            location.lat =  carcrash.location.lat
+            location.lng = carcrash.location.lng
+            location.zoom = carcrash.location.zoom
+            locationUpdate(carcrash.location.lat, carcrash.location.lng)
         }
         val launcherIntent = Intent(view, EditLocationView::class.java)
             .putExtra("location", location)
@@ -129,18 +128,16 @@ class CarCrashPresenter(private val view: CarCrashView) {
 
     fun doConfigureMap(m: GoogleMap){
         map = m
-        locationUpdate(carcrash.lat, carcrash.lng)
+        locationUpdate(carcrash.location.lat, carcrash.location.lng)
     }
 
     fun locationUpdate(lat: Double, lng: Double) {
-        carcrash.lat = lat
-        carcrash.lng = lng
-        carcrash.zoom = 15f
+        carcrash.location = location
         map?.clear()
         map?.uiSettings?.isZoomControlsEnabled = true
-        val options = MarkerOptions().title(carcrash.title).position(LatLng(carcrash.lat, carcrash.lng))
+        val options = MarkerOptions().title(carcrash.title).position(LatLng(carcrash.location.lat, carcrash.location.lng))
         map?.addMarker(options)
-        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(carcrash.lat, carcrash.lng), carcrash.zoom))
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(carcrash.location.lat, carcrash.location.lng), carcrash.location.zoom))
         view.showCarCrash(carcrash)
     }
 
@@ -153,7 +150,7 @@ class CarCrashPresenter(private val view: CarCrashView) {
                     AppCompatActivity.RESULT_OK -> {
                         if(result.data != null) {
                             Timber.i("Got Result ${result.data!!.data}")
-                            carcrash.image = result.data!!.data!!
+                            carcrash.image = result.data!!.data!!.toString()
                             view.updateImage(carcrash.image)
                         }
                     }
@@ -172,9 +169,7 @@ class CarCrashPresenter(private val view: CarCrashView) {
                             Timber.i("Got Location ${result.data.toString()}")
                             val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             Timber.i("Location == $location")
-                            carcrash.lat = location.lat
-                            carcrash.lng = location.lng
-                            carcrash.zoom = location.zoom
+                            carcrash.location = location
                         } // end of if
                     }
                     AppCompatActivity.RESULT_CANCELED -> { } else -> { }

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.*
 import org.wit.carcrash.R
 import org.wit.carcrash.databinding.ActivityCarcrashListBinding
@@ -23,7 +24,13 @@ class CarCrashListView : AppCompatActivity(), CarCrashListener/*, MultiplePermis
         super.onCreate(savedInstanceState)
         binding = ActivityCarcrashListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.toolbar.title = title
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user!= null) {
+            binding.toolbar.title = "${title}: ${user.email}"
+        }
+
         setSupportActionBar(binding.toolbar)
         presenter = CarCrashListPresenter(this)
         val layoutManager = LinearLayoutManager(this)

@@ -36,6 +36,6 @@ class CarCrashStoreRoom(val context: Context) : CarCrashStore {
         dao.deleteCarCrash(placemark)
     }
 
-    fun clear() {
+    override suspend fun clear() {
     }
 }

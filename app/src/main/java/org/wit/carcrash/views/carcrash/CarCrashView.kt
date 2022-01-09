@@ -13,6 +13,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.wit.carcrash.R
 import org.wit.carcrash.databinding.ActivityCarcrashBinding
+import org.wit.carcrash.models.Location
 import org.wit.carcrash.models.CarCrashModel
 import timber.log.Timber.i
 
@@ -96,19 +97,22 @@ class CarCrashView : AppCompatActivity() {
         if (binding.carcrashTitle.text.isEmpty()) binding.carcrashTitle.setText(carcrash.title)
         if (binding.description.text.isEmpty()) binding.description.setText(carcrash.description)
 
-        Picasso.get()
-            .load(carcrash.image)
-            .into(binding.carcrashImage)
+        if (carcrash.image != "") {
+            Picasso.get()
+                .load(carcrash.image)
+                .into(binding.carcrashImage)
 
-        if (carcrash.image != Uri.EMPTY) {
             binding.chooseImage.setText(R.string.change_carcrash_image)
         }
-        binding.lat.setText("%.6f".format(carcrash.lat))
-        binding.lng.setText("%.6f".format(carcrash.lng))
-
+        this.showLocation(carcrash.location)
     }
 
-    fun updateImage(image: Uri){
+    private fun showLocation (loc: Location){
+        binding.lat.setText("%.6f".format(loc.lat))
+        binding.lng.setText("%.6f".format(loc.lng))
+    }
+
+    fun updateImage(image: String){
         i("Image updated")
         Picasso.get()
             .load(image)
