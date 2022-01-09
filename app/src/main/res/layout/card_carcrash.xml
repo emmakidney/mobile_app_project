@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/crashType"
+            android:id="@+id/carcrashTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintStart_toEndOf="@+id/imageIcon"
-            app:layout_constraintTop_toBottomOf="@id/crashType"
+            app:layout_constraintTop_toBottomOf="@id/carcrashTitle"
             tools:text="A Description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
